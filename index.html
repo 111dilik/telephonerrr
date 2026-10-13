@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telephonerrr — обзоры гаджетов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== ТЕМЫ ===== */
+  html[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-soft: #f4f9f4;
+    --card: #ffffff;
+    --border: #e3ede3;
+    --text: #0e1a0e;
+    --text-soft: #5a6b5a;
+    --accent: #16a34a;
+    --accent-soft: #dcfce7;
+    --accent-hover: #15803d;
+    --shadow: 0 4px 20px rgba(22, 163, 74, 0.08);
+  }
+  html[data-theme="dark"] {
+    --bg: #0b1310;
+    --bg-soft: #101a16;
+    --card: #142019;
+    --border: #1f2f26;
+    --text: #e8f5ec;
+    --text-soft: #8fa696;
+    --accent: #22c55e;
+    --accent-soft: #14331f;
+    --accent-hover: #4ade80;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+  html[data-theme="black"] {
+    --bg: #000000;
+    --bg-soft: #0a0a0a;
+    --card: #111111;
+    --border: #1f1f1f;
+    --text: #ffffff;
+    --text-soft: #888888;
+    --accent: #22c55e;
+    --accent-soft: #0f2417;
+    --accent-hover: #4ade80;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  }
+  html[data-theme="blue"] {
+    --bg: #f6faff;
+    --bg-soft: #eaf2ff;
+    --card: #ffffff;
+    --border: #d6e4f7;
+    --text: #0a1a33;
+    --text-soft: #5a6b85;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --accent-hover: #1d4ed8;
+    --shadow: 0 4px 20px rgba(37, 99, 235, 0.1);
+  }
+  html[data-theme="amber"] {
+    --bg: #fffbf2;
+    --bg-soft: #fef3d9;
+    --card: #ffffff;
+    --border: #f2e2b8;
+    --text: #2a1d00;
+    --text-soft: #7a6a3f;
+    --accent: #d97706;
+    --accent-soft: #fef3c7;
+    --accent-hover: #b45309;
+    --shadow: 0 4px 20px rgba(217, 119, 6, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Commissioner', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    transition: background .25s ease, color .25s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== HEADER ===== */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0; gap: 20px;
+  }
+
+  /* ===== ЛОГОТИП ===== */
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .logo-img {
+    width: 38px; height: 38px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .logo-accent { color: var(--accent); }
+
+  /* ===== THEME SWITCHER ===== */
+  .themes { display: flex; gap: 8px; }
+  .theme-btn {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer; padding: 0;
+    transition: transform .15s, border-color .15s;
+    background-clip: padding-box;
+  }
+  .theme-btn:hover { transform: scale(1.15); }
+  .theme-btn.active { border-color: var(--accent); transform: scale(1.15); }
+  .theme-light { background: linear-gradient(135deg, #ffffff 50%, #16a34a 50%); }
+  .theme-dark  { background: linear-gradient(135deg, #0b1310 50%, #22c55e 50%); }
+  .theme-black { background: linear-gradient(135deg, #000000 50%, #22c55e 50%); }
+  .theme-blue  { background: linear-gradient(135deg, #f6faff 50%, #2563eb 50%); }
+  .theme-amber { background: linear-gradient(135deg, #fffbf2 50%, #d97706 50%); }
+
+  /* ===== HERO ===== */
+  .hero { padding: 80px 0 60px; text-align: center; }
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 60px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -1.5px; margin-bottom: 32px;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .cta {
+    display: inline-block; padding: 14px 32px;
+    background: var(--accent); color: #fff;
+    border-radius: 100px; font-weight: 600; font-size: 16px;
+    transition: background .15s, transform .15s;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 60px 0; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 36px; gap: 20px; flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 800; letter-spacing: -0.8px;
+  }
+
+  /* ===== GRID ДЛЯ КАРТОЧЕК ОБЗОРОВ ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0 30px;
+    background: var(--bg-soft);
+    margin-top: 40px;
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-inner p { color: var(--text-soft); font-size: 14px; }
+  .footer-nav { display: flex; gap: 24px; font-size: 14px; }
+  .footer-nav a { color: var(--text-soft); transition: color .15s; }
+  .footer-nav a:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .hero { padding: 50px 0 40px; }
+    .logo { font-size: 20px; gap: 10px; }
+    .logo-img { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <img src="images/Logo.jpg" alt="Telephonerrr" class="logo-img" onerror="this.style.display='none'">
+      <span>Telephon<span class="logo-accent">errr</span></span>
+    </a>
+
+    <div class="themes" id="themes">
+      <button class="theme-btn theme-light active" data-theme="light" title="Светлая" aria-label="Светлая тема"></button>
+      <button class="theme-btn theme-dark" data-theme="dark" title="Тёмная" aria-label="Тёмная тема"></button>
+      <button class="theme-btn theme-black" data-theme="black" title="Чёрная" aria-label="Чёрная тема"></button>
+      <button class="theme-btn theme-blue" data-theme="blue" title="Синяя" aria-label="Синяя тема"></button>
+      <button class="theme-btn theme-amber" data-theme="amber" title="Янтарная" aria-label="Янтарная тема"></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero container">
+    <h1>Гаджеты, о которых<br>стоит <em>знать</em></h1>
+  </section>
+
+  <!-- ОБЗОРЫ (пусто — карточки добавляем потом) -->
+  <section id="reviews" class="container">
+    <div class="section-head">
+      <h2>Свежие обзоры</h2>
+    </div>
+    <div class="grid" id="reviews-grid">
+      <!--
+        Здесь будут карточки обзоров.
+        Когда напишешь текст — просто пришли мне, я сверстаю карточку в этом блоке.
+      -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Telephonerrr. Обзоры без воды.</p>
+    <div class="footer-nav">
+      <a href="#">Telegram</a>
+      <a href="#">YouTube</a>
+      <a href="#">Контакты</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var html = document.documentElement;
+    var buttons = document.querySelectorAll('.theme-btn');
+
+    function setTheme(name) {
+      html.setAttribute('data-theme', name);
+      buttons.forEach(function(b) {
+        b.classList.toggle('active', b.dataset.theme === name);
+      });
+      try { localStorage.setItem('telephonerrr-theme', name); } catch (e) {}
+    }
+
+    // Загружаем сохранённую тему (безопасно для file://)
+    var saved = 'light';
+    try {
+      saved = localStorage.getItem('telephonerrr-theme') || 'light';
+    } catch (e) {}
+    setTheme(saved);
+
+    // Обработчики кликов
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setTheme(btn.dataset.theme);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
