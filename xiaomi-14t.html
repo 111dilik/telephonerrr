@@ -47,7 +47,6 @@
   img { max-width: 100%; display: block; }
   .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-  /* ===== ШАПКА ===== */
   header.site-header {
     background: var(--bg);
     border-bottom: 1px solid var(--border);
@@ -72,11 +71,7 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .logo-img {
-    width: 34px; height: 34px;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
+  .logo-img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
   .logo-accent { color: var(--accent); }
 
   .themes { display: flex; gap: 8px; flex-shrink: 0; }
@@ -94,7 +89,6 @@
   .theme-blue  { background: linear-gradient(135deg, #f6faff 50%, #2563eb 50%); }
   .theme-amber { background: linear-gradient(135deg, #fffbf2 50%, #d97706 50%); }
 
-  /* ===== КРОШКИ ===== */
   .breadcrumb {
     padding: 24px 0 0;
     font-size: 14px;
@@ -106,7 +100,6 @@
   .breadcrumb .sep { opacity: 0.4; }
   .breadcrumb .current { color: var(--text); }
 
-  /* ===== СТАТЬЯ ===== */
   .article-page { padding: 20px 0 60px; }
 
   .article-wrap {
@@ -213,10 +206,7 @@
     border: 1px solid var(--border);
     background: var(--card);
   }
-  .pros-cons h3 {
-    font-size: 16px; font-weight: 700;
-    margin-bottom: 12px;
-  }
+  .pros-cons h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
   .pros-cons ul { margin: 0; padding: 0; list-style: none; }
   .pros-cons li {
     font-size: 15px;
@@ -250,7 +240,46 @@
   }
   .verdict p:last-child { margin-bottom: 0; }
 
-  /* ===== ФУТЕР ===== */
+  .article-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 32px 0 0;
+    padding: 22px 26px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  .article-cta:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .article-cta:hover .article-cta-label,
+  .article-cta:hover .article-cta-desc,
+  .article-cta:hover .article-cta-arrow { color: #fff; }
+  .article-cta-label {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+    transition: color .15s;
+  }
+  .article-cta-desc {
+    font-size: 14px;
+    color: var(--text-soft);
+    transition: color .15s;
+  }
+  .article-cta-arrow {
+    font-size: 24px;
+    color: var(--accent);
+    transition: color .15s, transform .15s;
+  }
+  .article-cta:hover .article-cta-arrow { transform: translateX(4px); }
+
   footer {
     border-top: 1px solid var(--border);
     padding: 40px 0 30px;
@@ -271,6 +300,7 @@
     .logo-img { width: 28px; height: 28px; }
     .pros-cons { grid-template-columns: 1fr; }
     .article-content { font-size: 16px; }
+    .article-cta { padding: 20px; }
   }
 </style>
 </head>
@@ -451,6 +481,14 @@
           <p>Xiaomi 14T — сбалансированный субфлагман с отличными камерами Leica, высокой производительностью и ярким экраном. Компромиссы в виде пластиковых вставок и отсутствия беспроводной зарядки компенсируются ценой и мощной начинкой.</p>
           <p>За аналогичную стоимость (около 25 000 рублей) можно рассмотреть Honor 200 Pro с лучшей камерой. Но в целом Xiaomi 14T оставил приятное впечатление — это достойный повседневный аппарат.</p>
         </div>
+
+        <a class="article-cta" href="https://www.youtube.com/watch?v=ikxs80-PfG8&t=4s" target="_blank" rel="noopener">
+          <div>
+            <div class="article-cta-label">Канал Telephonerrr</div>
+            <div class="article-cta-desc">Смотреть видеообзор на YouTube</div>
+          </div>
+          <span class="article-cta-arrow">→</span>
+        </a>
 
       </div>
     </div>
