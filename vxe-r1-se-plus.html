@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VXE R1 SE+ — Telephonerrr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html[data-theme="light"] {
+    --bg: #ffffff; --bg-soft: #f4f9f4; --card: #ffffff;
+    --border: #e3ede3; --text: #0e1a0e; --text-soft: #5a6b5a;
+    --accent: #16a34a; --accent-soft: #dcfce7; --accent-hover: #15803d;
+  }
+  html[data-theme="dark"] {
+    --bg: #0b1310; --bg-soft: #101a16; --card: #142019;
+    --border: #1f2f26; --text: #e8f5ec; --text-soft: #8fa696;
+    --accent: #22c55e; --accent-soft: #14331f; --accent-hover: #4ade80;
+  }
+  html[data-theme="black"] {
+    --bg: #000000; --bg-soft: #0a0a0a; --card: #111111;
+    --border: #1f1f1f; --text: #ffffff; --text-soft: #888888;
+    --accent: #22c55e; --accent-soft: #0f2417; --accent-hover: #4ade80;
+  }
+  html[data-theme="blue"] {
+    --bg: #f6faff; --bg-soft: #eaf2ff; --card: #ffffff;
+    --border: #d6e4f7; --text: #0a1a33; --text-soft: #5a6b85;
+    --accent: #2563eb; --accent-soft: #dbeafe; --accent-hover: #1d4ed8;
+  }
+  html[data-theme="amber"] {
+    --bg: #fffbf2; --bg-soft: #fef3d9; --card: #ffffff;
+    --border: #f2e2b8; --text: #2a1d00; --text-soft: #7a6a3f;
+    --accent: #d97706; --accent-soft: #fef3c7; --accent-hover: #b45309;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Commissioner', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    transition: background .25s ease, color .25s ease;
+  }
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+  main { flex: 1; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  header.site-header {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; gap: 20px; flex-wrap: nowrap;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-weight: 700; font-size: 22px;
+    letter-spacing: -0.3px; white-space: nowrap; flex-shrink: 0;
+  }
+  .logo-img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+  .logo-accent { color: var(--accent); }
+
+  .themes { display: flex; gap: 8px; flex-shrink: 0; }
+  .theme-btn {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer; padding: 0;
+    transition: transform .15s, border-color .15s;
+  }
+  .theme-btn:hover { transform: scale(1.15); }
+  .theme-btn.active { border-color: var(--accent); transform: scale(1.15); }
+  .theme-light { background: linear-gradient(135deg, #ffffff 50%, #16a34a 50%); }
+  .theme-dark  { background: linear-gradient(135deg, #0b1310 50%, #22c55e 50%); }
+  .theme-black { background: linear-gradient(135deg, #000000 50%, #22c55e 50%); }
+  .theme-blue  { background: linear-gradient(135deg, #f6faff 50%, #2563eb 50%); }
+  .theme-amber { background: linear-gradient(135deg, #fffbf2 50%, #d97706 50%); }
+
+  .breadcrumb {
+    padding: 24px 0 0;
+    font-size: 14px; color: var(--text-soft);
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--text-soft); transition: color .15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb .sep { opacity: 0.4; }
+  .breadcrumb .current { color: var(--text); }
+
+  .article-page { padding: 20px 0 60px; }
+  .article-wrap { max-width: 720px; margin: 0 auto; }
+
+  .article-category {
+    display: inline-block;
+    padding: 5px 12px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    margin-bottom: 18px;
+  }
+
+  .article-title {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700; line-height: 1.25;
+    letter-spacing: -0.4px;
+    margin-bottom: 28px; color: var(--text);
+  }
+
+  .article-hero {
+    margin: 0 0 32px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+  .article-hero img { width: 100%; height: auto; display: block; }
+
+  .article-content {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .article-content p { margin-bottom: 20px; }
+  .article-content .lead {
+    font-size: 19px;
+    color: var(--text-soft);
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .article-content h2 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: clamp(22px, 3vw, 26px);
+    font-weight: 700; line-height: 1.25;
+    letter-spacing: -0.3px;
+    margin: 44px 0 18px;
+  }
+  .article-content ul {
+    margin: 0 0 22px 22px;
+    padding: 0;
+  }
+  .article-content li { margin-bottom: 8px; }
+  .article-content strong { font-weight: 700; }
+
+  .article-content figure {
+    margin: 32px 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+  .article-content figure img { width: 100%; height: auto; display: block; }
+
+  .specs {
+    margin: 32px 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--card);
+  }
+  .specs table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .specs td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .specs tr:last-child td { border-bottom: none; }
+  .specs td:first-child { color: var(--text-soft); width: 50%; font-weight: 500; }
+  .specs td:last-child { font-weight: 600; }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .pros-cons > div {
+    padding: 20px 22px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .pros-cons h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+  .pros-cons ul { margin: 0; padding: 0; list-style: none; }
+  .pros-cons li {
+    font-size: 15px;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .pros-cons .pros h3 { color: var(--accent); }
+  .pros-cons .cons h3 { color: #e11d48; }
+  .pros-cons .pros li::before {
+    content: "+"; position: absolute; left: 4px;
+    color: var(--accent); font-weight: 700;
+  }
+  .pros-cons .cons li::before {
+    content: "−"; position: absolute; left: 4px;
+    color: #e11d48; font-weight: 700;
+  }
+
+  .verdict {
+    margin: 36px 0 20px;
+    padding: 28px 30px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+  }
+  .verdict h2 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 12px;
+  }
+  .verdict p:last-child { margin-bottom: 0; }
+
+  .article-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    margin: 32px 0 0;
+    padding: 22px 26px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  .article-cta:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .article-cta:hover .article-cta-label,
+  .article-cta:hover .article-cta-desc,
+  .article-cta:hover .article-cta-arrow { color: #fff; }
+  .article-cta-label {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+    transition: color .15s;
+  }
+  .article-cta-desc {
+    font-size: 14px;
+    color: var(--text-soft);
+    transition: color .15s;
+  }
+  .article-cta-arrow {
+    font-size: 24px;
+    color: var(--accent);
+    transition: color .15s, transform .15s;
+  }
+  .article-cta:hover .article-cta-arrow { transform: translateX(4px); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0 30px;
+    background: var(--bg-soft);
+    margin-top: 40px;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-inner p { color: var(--text-soft); font-size: 14px; }
+  .footer-nav { display: flex; gap: 24px; font-size: 14px; }
+  .footer-nav a { color: var(--text-soft); transition: color .15s; }
+  .footer-nav a:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .logo { font-size: 18px; }
+    .logo-img { width: 28px; height: 28px; }
+    .pros-cons { grid-template-columns: 1fr; }
+    .article-content { font-size: 16px; }
+    .article-cta { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/Logo.webp" alt="Telephonerrr" class="logo-img" onerror="this.style.display='none'">
+      <span>Telephone<span class="logo-accent">rrr</span></span>
+    </a>
+
+    <div class="themes" id="themes">
+      <button class="theme-btn theme-light active" data-theme="light" title="Светлая"></button>
+      <button class="theme-btn theme-dark" data-theme="dark" title="Тёмная"></button>
+      <button class="theme-btn theme-black" data-theme="black" title="Чёрная"></button>
+      <button class="theme-btn theme-blue" data-theme="blue" title="Синяя"></button>
+      <button class="theme-btn theme-amber" data-theme="amber" title="Янтарная"></button>
+    </div>
+  </div>
+</header>
+
+<main class="article-page">
+  <div class="container">
+
+    <nav class="breadcrumb">
+      <a href="index.html">Главная</a>
+      <span class="sep">/</span>
+      <a href="#">Периферия</a>
+      <span class="sep">/</span>
+      <span class="current">VXE R1 SE+</span>
+    </nav>
+
+    <div class="article-wrap">
+
+      <div class="article-category">Периферия</div>
+
+      <h1 class="article-title">VXE R1 SE+: обзор бюджетной беспроводной мыши, которая может заменить Logitech G102</h1>
+
+      <figure class="article-hero">
+        <img src="images/vxer1se/vxer1se 5.png" alt="VXE R1 SE+">
+      </figure>
+
+      <div class="article-content">
+
+        <h2>Введение</h2>
+
+        <p class="lead">Если вы когда-нибудь искали бюджетную игровую мышь, то наверняка натыкались на бесконечные топы, где на первом месте красуется Logitech G102. И всё бы ничего, но у неё есть целый букет хронических проблем: дешёвый пластик, двойные клики, отваливающееся колёсико. Если вы устали от этого и хотите найти реальную альтернативу, то, возможно, вы попали по адресу.</p>
+
+        <p>Автор канала «Телефонер» более полугода использует бюджетную мышь VXE R1 SE+ и за это время не заметил ни одного срыва сенсора, ни одного двойного клика, ни отвала колёсика, ни других неприятностей. На старте продаж у покупателей встречался брак с проблемами прошивки, но сейчас эта проблема решена. Мышь была приобретена за 1500 рублей в чёрном цвете, также доступна белая расцветка и версии Dark и Light в коллаборации с IO, где боковые кнопки и колёсико выполнены в голубом цвете.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 1.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Комплектация</h2>
+
+        <p>В коробке вы найдёте стандартный набор:</p>
+
+        <ul>
+          <li>саму мышь в пакетике;</li>
+          <li>кабель для зарядки — длинный, обшитый;</li>
+          <li>инструкцию с иллюстрациями, которая, к слову, вполне понятная.</li>
+        </ul>
+
+        <p>Ничего лишнего, но всё необходимое есть.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 2.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Автономность и подключение</h2>
+
+        <p>Заряда хватает примерно на 2–3 недели при активном использовании в играх и веб-сёрфинге. Полная зарядка занимает от получаса до часа. Ёмкость аккумулятора — 500 мА·ч. Производитель обещает до 70 часов работы без подзарядки, но не уточняет, идёт ли речь об играх или об офисном использовании.</p>
+
+        <p>Мышь беспроводная и поддерживает три режима подключения:</p>
+
+        <ul>
+          <li>через USB-донгл на 2,4 ГГц;</li>
+          <li>по проводу во время зарядки;</li>
+          <li>по Bluetooth.</li>
+        </ul>
+
+        <p>Переключение режимов осуществляется переключателем на нижней панели. В утилите можно настроить спящий режим, чтобы мышь не тратила заряд, когда вы ею не пользуетесь.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 3.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Дизайн и вес</h2>
+
+        <p>Мышь выполнена в минималистичном дизайне. Весит всего 58 граммов. Задняя часть немного перевешивает переднюю, но в игре это практически незаметно. Глайды хорошие, но на плохом коврике мышь скользит не так хорошо, зато на столе — «как сыр в масле». Автор советует вместе с новой мышью приобрести и хороший коврик.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 4.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Версии и сенсор</h2>
+
+        <p>В линейке представлены четыре модели: R1, R1 SE Plus, Pro и Pro Max. По размерам они не отличаются. Версии Pro и Pro Max получили новое покрытие, которое на ощупь напоминает лёд. Поскольку SE — самая дешёвая версия, в ней установлен бюджетный сенсор 3395SE, тогда как во всех остальных версиях стоит Paw 3395. Это немного упрощённая версия сенсора.</p>
+
+        <p>В таблице указана частота опроса 2000 Гц, хотя на практике у автора максимальная частота составляет 1000 Гц, а в Pro-версиях — 4000 Гц. Также в Pro-версиях почему-то отсутствует подключение по Bluetooth.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 6.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Переключатели и энкодер</h2>
+
+        <ul>
+          <li><strong>Основные микрики:</strong> Huano Red Dot Blue Shell Transparent с ресурсом до 60 млн нажатий.</li>
+          <li><strong>Боковые кнопки:</strong> Huano White Dot Black Shell с ресурсом до 3 млн нажатий.</li>
+          <li><strong>Энкодер колёсика:</strong> F-Switch E10.</li>
+        </ul>
+
+        <p>Автор также демонстрирует претревел, посттревел и сайдтревел, чтобы показать поведение мыши при подъёме и движениях в стороны.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 7.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Настройка DPI</h2>
+
+        <p>На нижней панели есть кнопка настройки DPI. По умолчанию настроено четыре режима:</p>
+
+        <ul>
+          <li>красный цвет — 400 DPI;</li>
+          <li>зелёный — 800 DPI;</li>
+          <li>синий — 1600 DPI;</li>
+          <li>фиолетовый — 3200 DPI.</li>
+        </ul>
+
+        <p>Всё это можно изменить в специальной утилите. Максимальный DPI мыши — 18 000, частота опроса — 1000 Гц. В утилите можно настроить собственный режим DPI, задать свой цвет и значение. Индикатор DPI светится сверху возле колёсика. Его также можно настроить: отключить свечение, сделать постоянным или выбрать режим «дыхания», а также отрегулировать скорость и яркость.</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 8.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Качество сборки</h2>
+
+        <p>Мышь выполнена качественно, с хорошей сборкой. За полгода использования у автора не появилось ни скрипа, ни люфта. Если в игре что-то пойдёт не так и мышь подвергнется механическому воздействию, она это выдержит — по крайней мере, его экземпляр выдержал.</p>
+
+        <h2>Утилита</h2>
+
+        <p>Отдельного внимания заслуживает программное обеспечение. Автор обращается к пользователям Logitech: если у вас установлена утилита Logitech G Hub, он советует её удалить. Дело в том, что она работает на Electron с использованием движка Chromium — по сути, это тот же Яндекс Браузер. Такие утилиты занимают от 500 до 1000 МБ оперативной памяти и нагружают видеокарту, отнимая часть FPS в играх. Это касается не только Logitech, но и Razer, SteelSeries и Asus. Представляете, целый браузерный движок только для настройки подсветки периферии — стоит ли оно того?</p>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 9.png" alt="VXE R1 SE+">
+        </figure>
+
+        <p>У VXE есть как веб-версия утилиты (без установки на ПК), так и десктопная версия, которая весит около 100 МБ и занимает примерно 120 МБ оперативной памяти. Если пользоваться веб-версией, есть риск «окирпичивания» устройства при обновлении прошивки. Случаи нечастые, но вероятность существует.</p>
+
+        <p>Утилита выполнена в минималистичном дизайне, как и сама мышь. В главном меню можно:</p>
+
+        <ul>
+          <li>поменять цвет мыши (чёрный или белый);</li>
+          <li>установить свои обои, шрифты и темы;</li>
+          <li>следить за уровнем заряда;</li>
+          <li>настраивать кнопки;</li>
+          <li>настраивать DPI;</li>
+          <li>включать режим очень дальнего расстояния;</li>
+          <li>настраивать цвет и режим индикатора DPI.</li>
+        </ul>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 10.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Характеристики</h2>
+
+        <div class="specs">
+          <table>
+            <tr><td>Сенсор</td><td>3395SE (в версии SE)</td></tr>
+            <tr><td>Максимальный DPI</td><td>18 000</td></tr>
+            <tr><td>Частота опроса</td><td>1000 Гц (в Pro — 4000 Гц)</td></tr>
+            <tr><td>Основные микрики</td><td>Huano Red Dot Blue Shell, 60 млн нажатий</td></tr>
+            <tr><td>Боковые кнопки</td><td>Huano White Dot Black Shell, 3 млн нажатий</td></tr>
+            <tr><td>Энкодер</td><td>F-Switch E10</td></tr>
+            <tr><td>Аккумулятор</td><td>500 мА·ч</td></tr>
+            <tr><td>Автономность</td><td>2–3 недели, до 70 часов</td></tr>
+            <tr><td>Подключение</td><td>2,4 ГГц / провод / Bluetooth</td></tr>
+            <tr><td>Вес</td><td>58 г</td></tr>
+            <tr><td>Цена</td><td>~1500 ₽</td></tr>
+          </table>
+        </div>
+
+        <figure>
+          <img src="images/vxer1se/vxer1se 11.png" alt="VXE R1 SE+">
+        </figure>
+
+        <h2>Плюсы и минусы</h2>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h3>Плюсы</h3>
+            <ul>
+              <li>Низкая цена (1500 ₽)</li>
+              <li>Нет двойных кликов и отвалов колёсика</li>
+              <li>Лёгкий вес (58 г)</li>
+              <li>Три режима подключения</li>
+              <li>Хорошая автономность (2–3 недели)</li>
+              <li>Качественная сборка</li>
+              <li>Минималистичный дизайн</li>
+              <li>Лёгкая и функциональная утилита</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h3>Минусы</h3>
+            <ul>
+              <li>Бюджетный сенсор 3395SE (только в SE)</li>
+              <li>Заявленные 2000 Гц на практике — 1000 Гц</li>
+              <li>В Pro-версиях нет Bluetooth</li>
+              <li>Риск окирпичивания при обновлении через веб-утилиту</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="verdict">
+          <h2>Итог</h2>
+          <p>VXE R1 SE+ — это реально годная бюджетная мышь, которая может стать отличной заменой Logitech G102. Она лишена хронических проблем последней, стоит наравне с Ardor Fury, у которой минусов явно больше, и при этом предлагает хорошую сборку, лёгкий вес и удобную утилиту. Докопаться до неё очень тяжело, потому что за свою цену она делает всё, что нужно.</p>
+          <p>Обзор получился подробным, хотя казалось бы — что можно рассказывать о маленькой мышке? Но, как выяснилось, есть о чём. Если вы ищете недорогую и надёжную мышь для игр и повседневной работы, VXE R1 SE+ заслуживает вашего внимания.</p>
+        </div>
+
+        <a class="article-cta" href="https://www.youtube.com/watch?v=qF6_N-93_ac&t=26s" target="_blank" rel="noopener">
+          <div>
+            <div class="article-cta-label">Канал Telephonerrr</div>
+            <div class="article-cta-desc">Смотреть видеообзор на YouTube</div>
+          </div>
+          <span class="article-cta-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Telephonerrr. Обзоры без воды.</p>
+    <div class="footer-nav">
+      <a href="#">Telegram</a>
+      <a href="#">YouTube</a>
+      <a href="#">Контакты</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var html = document.documentElement;
+    var buttons = document.querySelectorAll('.theme-btn');
+
+    function setTheme(name) {
+      html.setAttribute('data-theme', name);
+      buttons.forEach(function(b) {
+        b.classList.toggle('active', b.dataset.theme === name);
+      });
+      try { localStorage.setItem('telephonerrr-theme', name); } catch (e) {}
+    }
+
+    var saved = 'light';
+    try { saved = localStorage.getItem('telephonerrr-theme') || 'light'; } catch (e) {}
+    setTheme(saved);
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setTheme(btn.dataset.theme);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
